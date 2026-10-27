@@ -1,0 +1,6 @@
+{
+  "name": "Drawing Futsal Putri MGMP Cup 2026",
+  "description": "Sistem pengundian resmi, manajemen database tim peserta, bagan 8 besar, dan generator jadwal pertandingan Futsal Putri MGMP Cup Tahun 2026 Kabupaten Temanggung.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

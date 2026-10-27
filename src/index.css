@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #F8FAFC;
+    color: #0F172A;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   PRINT STYLES FOR OFFICIAL TOURNAMENT SCHEDULE & DRAWING OUTPUT
+   Ensures repeating table headers (thead), clean page breaks, high-contrast
+   rendering, and elimination of overflow clipping across multi-page tables.
+   ========================================================================== */
+
+@page {
+  size: A4 portrait;
+  margin: 10mm 10mm 12mm 10mm;
+}
+
+@media print {
+  /* Force exact color reproduction for headers and status badges */
+  *,
+  *::before,
+  *::after {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Hide on-screen only elements */
+  .no-print,
+  aside,
+  header.no-print,
+  button:not(.print-keep),
+  input,
+  .drawing-controls-panel {
+    display: none !important;
+  }
+
+  /* Full-width document canvas without screen margins or shadows */
+  html,
+  body {
+    background-color: #FFFFFF !important;
+    color: #0F172A !important;
+    font-size: 10pt !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #root,
+  .min-h-screen,
+  .flex-1 {
+    display: block !important;
+    width: 100% !important;
+    min-height: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+  }
+
+  main {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* CRITICAL: Clear all overflow clipping that prevents browsers
+     from repeating thead on subsequent printed pages */
+  .overflow-x-auto,
+  .overflow-y-auto,
+  .overflow-hidden,
+  .overflow-auto,
+  div[class*="overflow-"] {
+    overflow: visible !important;
+    display: block !important;
+    max-height: none !important;
+    height: auto !important;
+  }
+
+  /* Table Architecture & Repeating Header Preservation */
+  table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+    margin-top: 6px !important;
+    margin-bottom: 12px !important;
+  }
+
+  thead {
+    display: table-header-group !important; /* Preserves headers on every page */
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  tfoot {
+    display: table-footer-group !important;
+  }
+
+  tbody {
+    display: table-row-group !important;
+  }
+
+  tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  th,
+  td {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Structured Header Cell Printing */
+  thead th {
+    background-color: #0F172A !important;
+    color: #FFFFFF !important;
+    border: 1px solid #0F172A !important;
+    padding: 6px 8px !important;
+    font-weight: 700 !important;
+    font-size: 8.5pt !important;
+    letter-spacing: 0.025em !important;
+  }
+
+  tbody td {
+    padding: 5.5px 8px !important;
+    border: 1px solid #CBD5E1 !important;
+    font-size: 8.5pt !important;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #F8FAFC !important;
+  }
+
+  /* Group & Card Blocks formatting in Drawing View */
+  .drawing-groups-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .print-card,
+  .border-slate-200 {
+    border-color: #CBD5E1 !important;
+  }
+
+  .rounded-xl {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    border-radius: 6px !important;
+  }
+
+  /* Header banner styling in print */
+  .print-header-banner {
+    display: block !important;
+    border-bottom: 2px solid #0F172A !important;
+    padding-bottom: 8px !important;
+    margin-bottom: 14px !important;
+  }
+
+  /* Link formatting: prevent printing URL hrefs */
+  a[href]::after {
+    content: "" !important;
+  }
+}
